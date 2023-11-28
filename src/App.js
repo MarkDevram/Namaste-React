@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom/client"
 import { Header } from "./Components/Header"
 import { resObj } from "./utils/RestarentObject"
 import { Body } from "./Components/Body"
-
+import { useState } from "react"
 // const resObj = {
 //   id: "427059",
 //   name: "KFC",
@@ -18,12 +18,13 @@ import { Body } from "./Components/Body"
 //   deliveryTime: 30,
 //   isOpen: true,
 // }
-
+const resObjects = resObj
 const AppLayout = () => {
+  const [resObj, setResObj] = useState(resObjects)
   return (
     <div className="app">
       <Header />
-      <Body resObj={resObj} />
+      <Body resObj={resObj} setResObj={setResObj} />
     </div>
   )
 }
