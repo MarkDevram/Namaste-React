@@ -13,6 +13,7 @@ export const Body = ({ resObz }) => {
     setResObj(resObz)
   }
   const handleSearch = () => {
+    // resetRestaurentList()
     const searchedRestaurent = resObj.filter((obj) => {
       return obj.name.toLowerCase().includes(searchString)
     })
@@ -26,7 +27,15 @@ export const Body = ({ resObz }) => {
         <input
           value={searchString}
           onChange={(e) => {
-            setSearchString(e.target.value)
+            if (!e.target.value) {
+              console.log("nope")
+              setResObj(resObz)
+            } else {
+              console.log("yes")
+              if (e.target.valu === " ") console.log("Spaces")
+              setSearchString(e.target.value)
+              handleSearch()
+            }
           }}
           placeholder="Search your favorite restaurent"
         />
