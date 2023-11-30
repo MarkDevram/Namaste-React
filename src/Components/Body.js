@@ -38,6 +38,7 @@ export const Body = () => {
     else setResObj(resObj)
   }
 
+  //conditional Rendering
   if (resObj.length === 0) {
     return <ShimmerComp />
   }
