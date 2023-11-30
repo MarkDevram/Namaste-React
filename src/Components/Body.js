@@ -5,7 +5,10 @@ import ShimmerComp from "./ShimmerComp"
 
 export const Body = () => {
   //Restaurent Object
-  const [resObj, setResObj] = useState(resObjFromFile)
+  const [resObj, setResObj] = useState([])
+
+  //filtered Restaurent's
+  const [flteredRestaurent, setFilterdRestaurent] = useState([])
 
   //search string state
   const [searchString, setSearchString] = useState("")
@@ -27,15 +30,15 @@ export const Body = () => {
       return obj.info
     })
     setResObj(dataRes)
+    setFilterdRestaurent(dataRes)
   }
 
   const handleSearch = () => {
     const searchedRestaurent = resObj.filter((obj) => {
-      return obj?.name.includes(searchString)
+      return obj?.name.toLowerCase().includes(searchString)
     })
 
-    if (searchedRestaurent) setResObj(searchedRestaurent)
-    else setResObj(resObj)
+    setFilterdRestaurent(searchedRestaurent)
   }
 
   //conditional Rendering
@@ -47,17 +50,16 @@ export const Body = () => {
       {/* Searching the Restarent based on Name */}
       <div className="search">
         <input
-          value={searchString}
           onChange={(e) => {
-            if (!e.target.value) {
-              console.log("nope")
+            // if (!e.target.value) {
+            //   console.log("nope")
+            // } else {
+            setSearchString(e.target.value)
+            handleSearch()
+            if (e.target.value.length === 0) {
               setResObj(resObj)
-            } else {
-              console.log("yes")
-              if (e.target.value === " ") console.log("Spaces")
-              setSearchString(e.target.value)
-              handleSearch()
             }
+            // }
           }}
           placeholder="Search your favorite restaurent"
         />
@@ -80,7 +82,7 @@ export const Body = () => {
         <button
           onClick={() => {
             let filteredObj = resObj.filter((obj) => obj.avgRating >= 4.5)
-            setResObj(filteredObj)
+            setFilterdRestaurent(filteredObj)
           }}
         >
           Top Rated Restarents
@@ -89,7 +91,7 @@ export const Body = () => {
 
       {/* Displaying Restaurent Object */}
       <div className="res-container">
-        {resObj.map((eachObj, i) => {
+        {flteredRestaurent.map((eachObj, i) => {
           return <RestarentCard resObj={eachObj} key={i} />
         })}
       </div>

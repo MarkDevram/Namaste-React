@@ -57,3 +57,9 @@
   background-color: #d1c9c9;
   margin: 15px;
 }
+.login-btn {
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
+  margin-right: 10px;
+}
