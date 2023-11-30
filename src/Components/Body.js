@@ -57,7 +57,7 @@ export const Body = () => {
             setSearchString(e.target.value)
             handleSearch()
             if (e.target.value.length === 0) {
-              setResObj(resObj)
+              setFilterdRestaurent(resObj)
             }
             // }
           }}
