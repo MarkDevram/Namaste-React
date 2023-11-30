@@ -1,7 +1,9 @@
 import { restarentCloudinarImg } from "../utils/Constants"
 
 export const RestarentCard = ({ resObj }) => {
-  const { name, cuisines, avgRating, costForTwo, id } = resObj
+  // console.log(resObj)
+  const { name, cuisines, avgRating, costForTwo } = resObj
+  // console.log(name, cuisines, avgRating, costForTwo)
 
   const syleObj = {
     backgroundColor: "lightGreen",

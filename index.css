@@ -47,3 +47,13 @@
   margin-right: 10px;
   margin-left: 10px;
 }
+.shimmer-division {
+  display: flex;
+  flex-wrap: wrap;
+}
+.shimmerCard {
+  width: 250px;
+  height: 194px;
+  background-color: #d1c9c9;
+  margin: 15px;
+}

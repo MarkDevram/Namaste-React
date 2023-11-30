@@ -1,24 +1,45 @@
 import { RestarentCard } from "./RestarentCard"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { resObjFromFile } from "../utils/RestarentObject"
+import ShimmerComp from "./ShimmerComp"
 
-export const Body = ({ resObz }) => {
+export const Body = () => {
   //Restaurent Object
-  const [resObj, setResObj] = useState(resObz)
+  const [resObj, setResObj] = useState(resObjFromFile)
 
-  //Search String State
+  //search string state
   const [searchString, setSearchString] = useState("")
 
-  const resetRestaurentList = () => {
-    setSearchString("")
-    setResObj(resObz)
+  useEffect(() => {
+    fetchFun()
+  }, [])
+
+  const fetchFun = async () => {
+    let API_Url =
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.956924&lng=77.701127&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+
+    const response = await fetch(API_Url)
+    const json = await response.json()
+    const restaurentObj =
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+
+    const dataRes = restaurentObj.map((obj) => {
+      return obj.info
+    })
+    setResObj(dataRes)
   }
+
   const handleSearch = () => {
-    // resetRestaurentList()
     const searchedRestaurent = resObj.filter((obj) => {
-      return obj.name.toLowerCase().includes(searchString)
+      return obj?.name.includes(searchString)
     })
 
-    setResObj(searchedRestaurent)
+    if (searchedRestaurent) setResObj(searchedRestaurent)
+    else setResObj(resObj)
+  }
+
+  if (resObj.length === 0) {
+    return <ShimmerComp />
   }
   return (
     <div className="body">
@@ -29,10 +50,10 @@ export const Body = ({ resObz }) => {
           onChange={(e) => {
             if (!e.target.value) {
               console.log("nope")
-              setResObj(resObz)
+              setResObj(resObj)
             } else {
               console.log("yes")
-              if (e.target.valu === " ") console.log("Spaces")
+              if (e.target.value === " ") console.log("Spaces")
               setSearchString(e.target.value)
               handleSearch()
             }
@@ -44,15 +65,11 @@ export const Body = ({ resObz }) => {
           onClick={() => {
             handleSearch()
           }}
-        >
-          Search
-        </button>
-        <button
-          onClick={() => {
-            resetRestaurentList()
+          onMouseMove={() => {
+            setResObj(resObj)
           }}
         >
-          Reset
+          Search
         </button>
       </div>
 
@@ -61,7 +78,7 @@ export const Body = ({ resObz }) => {
       <div className="filter">
         <button
           onClick={() => {
-            let filteredObj = resObj.filter((obj) => obj.avgRating >= 4.3)
+            let filteredObj = resObj.filter((obj) => obj.avgRating >= 4.5)
             setResObj(filteredObj)
           }}
         >
@@ -71,8 +88,8 @@ export const Body = ({ resObz }) => {
 
       {/* Displaying Restaurent Object */}
       <div className="res-container">
-        {resObj.map((resObz) => {
-          return <RestarentCard resObj={resObz} key={resObz.id} />
+        {resObj.map((eachObj, i) => {
+          return <RestarentCard resObj={eachObj} key={i} />
         })}
       </div>
     </div>
