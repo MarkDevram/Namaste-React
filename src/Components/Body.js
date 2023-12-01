@@ -19,16 +19,17 @@ export const Body = () => {
 
   const fetchFun = async () => {
     let API_Url =
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.956924&lng=77.701127&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.956924&lng=77.701127&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
 
     const response = await fetch(API_Url)
     const json = await response.json()
     const restaurentObj =
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
     const dataRes = restaurentObj.map((obj) => {
       return obj.info
     })
+    console.log(dataRes)
     setResObj(dataRes)
     setFilterdRestaurent(dataRes)
   }
