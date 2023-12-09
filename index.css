@@ -1,10 +1,17 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .header {
   display: flex;
   justify-content: space-between;
   border: 1px solid black;
 }
 .logo {
-  width: 100px;
+  top: 5px;
+  left: 20px;
+  position: relative;
+  width: 150px;
+  height: 110px;
 }
 .nav-items ul {
   display: flex;
@@ -16,6 +23,7 @@
   list-style-type: none;
 }
 .Res-card {
+  border-radius: 5%;
   margin: 5px;
   padding: 5px;
   height: 466px;
@@ -32,6 +40,7 @@
   margin-bottom: 20px;
 }
 .resLogo {
+  border-radius: 5%;
   width: 250px;
   height: 194px;
 }
@@ -47,19 +56,120 @@
   margin-right: 10px;
   margin-left: 10px;
 }
+
 .shimmer-division {
+  margin-top: 80px;
   display: flex;
   flex-wrap: wrap;
 }
+
 .shimmerCard {
-  width: 250px;
-  height: 350px;
-  background-color: #d1c9c9;
+  border-radius: 5%;
+  width: 260px;
+  height: 450px;
+  background-color: #d8cfc4;
   margin: 15px;
+  animation: shimmerAnimation 4s infinite linear;
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 .login-btn {
   cursor: pointer;
   width: 80px;
   height: 60px;
   margin-right: 10px;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  font-size: larger;
+}
+
+.eachItem {
+  border: 2px solid purple;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.itemHeader {
+  color: beige;
+  position: relative;
+  left: 445px;
+  width: 655px;
+  text-align: center;
+  font-size: xx-large;
+  border: 5px solid rgb(0, 170, 255);
+  border-radius: 5px;
+  padding: 13px;
+  background-color: #8967d2;
+}
+.restaurentHeader {
+  margin: 20px;
+}
+
+.restaurent-name {
+  position: relative;
+  left: -22px;
+  border-radius: 20px;
+  padding: 2px;
+  border: 7px solid #8967d2;
+  font-size: 30;
+  font-style: normal;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  color: aliceblue;
+  background-color: black;
+  font-size: 35px;
+}
+.cuisines {
+  font-size: 25px;
+  font-weight: bolder;
+  background-color: black;
+  color: aliceblue;
+  padding: 5px;
+  border-radius: 4px;
+}
+.deliveryTime {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: black;
+  color: aliceblue;
+  margin-left: 20px;
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.user-card {
+  height: 400px;
+  width: 400px;
+  margin: 5px;
+  padding: 5px;
+  border: 8px solid black;
+  border-radius: 6px;
+  border-style: groove;
+}
+
+.user-logo {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+}
+
+.usercard-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.userContainer {
+  margin: 50px;
 }

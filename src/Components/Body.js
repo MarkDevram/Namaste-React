@@ -2,6 +2,7 @@ import { RestarentCard } from "./RestarentCard"
 import { useState, useEffect } from "react"
 import { resObjFromFile } from "../utils/RestarentObject"
 import ShimmerComp from "./ShimmerComp"
+import { Link } from "react-router-dom"
 
 export const Body = () => {
   //Restaurent Object
@@ -23,10 +24,11 @@ export const Body = () => {
 
     const response = await fetch(API_Url)
     const json = await response.json()
+    console.log(json)
     const restaurentObj =
       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
-    const dataRes = restaurentObj.map((obj) => {
+    const dataRes = restaurentObj?.map((obj) => {
       return obj.info
     })
     console.log(dataRes)
@@ -46,15 +48,13 @@ export const Body = () => {
   if (resObj.length === 0) {
     return <ShimmerComp />
   }
+
   return (
     <div className="body">
       {/* Searching the Restarent based on Name */}
       <div className="search">
         <input
           onChange={(e) => {
-            // if (!e.target.value) {
-            //   console.log("nope")
-            // } else {
             setSearchString(e.target.value)
             handleSearch()
             if (e.target.value.length === 0) {
@@ -82,7 +82,7 @@ export const Body = () => {
       <div className="filter">
         <button
           onClick={() => {
-            let filteredObj = resObj.filter((obj) => obj.avgRating >= 4.5)
+            let filteredObj = resObj?.filter((obj) => obj.avgRating >= 4.5)
             setFilterdRestaurent(filteredObj)
           }}
         >
@@ -92,9 +92,11 @@ export const Body = () => {
 
       {/* Displaying Restaurent Object */}
       <div className="res-container">
-        {flteredRestaurent.map((eachObj, i) => {
-          return <RestarentCard resObj={eachObj} key={i} />
-        })}
+        {flteredRestaurent?.map((eachObj, i) => (
+          <Link to={"/restaurents/" + eachObj.id}>
+            <RestarentCard resObj={eachObj} />
+          </Link>
+        ))}
       </div>
     </div>
   )
