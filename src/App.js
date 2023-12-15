@@ -46,6 +46,11 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurents/grocery",
         element: (
+          //Lazy loading
+          //Code splitting
+          //Chunking
+          //Dynamic import
+          //All this same
           <Suspense fallback={<h1>Loading ⏳</h1>}>
             <Grocery />
           </Suspense>
