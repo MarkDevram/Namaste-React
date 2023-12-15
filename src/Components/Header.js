@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { CDNImgLink } from "../utils/Constants"
 import { Link } from "react-router-dom"
+import useOnlinStatus from "../utils/useOnlinStatus"
 
 export const Header = () => {
   const [btnClicked, setBtnCliked] = useState(false)
-
+  const statusValue = useOnlinStatus()
   return (
     <div className="header">
       <div className="logo-container">
@@ -12,6 +13,9 @@ export const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li className="onlineStatus">
+            {statusValue ? "Online🟢" : "Offline🔴"}
+          </li>
           <li>
             <Link to="/">Home</Link>
           </li>

@@ -173,3 +173,9 @@ body {
 .userContainer {
   margin: 50px;
 }
+.onlineStatus {
+  border: 5px solid black;
+  color: rgb(0, 0, 0);
+  background-color: beige;
+  border-radius: 5%;
+}
