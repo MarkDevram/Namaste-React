@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { resObjFromFile } from "../utils/RestarentObject"
 import ShimmerComp from "./ShimmerComp"
 import { Link } from "react-router-dom"
+import useOnlinStatus from "../utils/useOnlinStatus"
 
 export const Body = () => {
   //Restaurent Object
@@ -36,6 +37,13 @@ export const Body = () => {
     setFilterdRestaurent(dataRes)
   }
 
+  //onLineStatus
+  const onlineStatus = useOnlinStatus()
+  if (onlineStatus === false) {
+    console.log(onlineStatus)
+    return <h1> Velli VRSN ☹️☹️☹️</h1>
+  }
+
   const handleSearch = () => {
     const searchedRestaurent = resObj.filter((obj) => {
       return obj?.name.toLowerCase().includes(searchString)
@@ -45,7 +53,7 @@ export const Body = () => {
   }
 
   //conditional Rendering
-  if (resObj.length === 0) {
+  if (resObj?.length === 0) {
     return <ShimmerComp />
   }
 
@@ -76,9 +84,7 @@ export const Body = () => {
           Search
         </button>
       </div>
-
       {/* Filtering the Top reated Restaurents */}
-
       <div className="filter">
         <button
           onClick={() => {
@@ -91,9 +97,10 @@ export const Body = () => {
       </div>
 
       {/* Displaying Restaurent Object */}
+
       <div className="res-container">
         {flteredRestaurent?.map((eachObj, i) => (
-          <Link to={"/restaurents/" + eachObj.id}>
+          <Link to={"/restaurents/" + eachObj.id} key={i}>
             <RestarentCard resObj={eachObj} />
           </Link>
         ))}

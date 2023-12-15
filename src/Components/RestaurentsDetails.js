@@ -2,23 +2,14 @@ import React, { useEffect, useState } from "react"
 import ShimmerComp from "./ShimmerComp"
 import { menuAPI_URL } from "../utils/Constants"
 import { useParams } from "react-router-dom"
+import useRestaurentMenu from "../utils/useRestaurentMenu"
 
 function RestaurentsDetails() {
-  //state declaration
-  const [resInfo, setResInfo] = useState(null)
   const { resId } = useParams()
   console.log(resId)
-  //useEffect
-  useEffect(() => {
-    fetchRestaurentData()
-  }, [])
 
-  //fetch function
-  async function fetchRestaurentData() {
-    const data = await fetch(menuAPI_URL + resId)
-    const json = await data.json()
-    setResInfo(json.data)
-  }
+  const resInfo = useRestaurentMenu(resId)
+  console.log(resInfo)
 
   //conditional rendering
   if (resInfo === null) {
