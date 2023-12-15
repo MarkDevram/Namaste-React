@@ -41,7 +41,12 @@ export const Body = () => {
   const onlineStatus = useOnlinStatus()
   if (onlineStatus === false) {
     console.log(onlineStatus)
-    return <h1> Velli VRSN ☹️☹️☹️</h1>
+    return (
+      <h1 style={{ textAlign: "center" }}>
+        {" "}
+        You are not connected to the Internet
+      </h1>
+    )
   }
 
   const handleSearch = () => {

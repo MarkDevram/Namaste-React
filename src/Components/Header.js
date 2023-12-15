@@ -25,6 +25,9 @@ export const Header = () => {
           <li>
             <Link to="/contact">Contact us</Link>
           </li>
+          <li>
+            <Link to="/restaurents/grocery">Grocery</Link>
+          </li>
           <li>Cart</li>
 
           <button

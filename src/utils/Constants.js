@@ -5,4 +5,4 @@ export const restarentCloudinarImg =
   "https://res.cloudinary.com/swiggy/image/upload/"
 
 export const menuAPI_URL =
-  "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.956924&lng=77.701127&restaurantId="
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.956924&lng=77.701127&restaurantId="
