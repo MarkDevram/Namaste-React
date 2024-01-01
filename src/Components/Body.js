@@ -65,8 +65,9 @@ export const Body = () => {
   return (
     <div className="body">
       {/* Searching the Restarent based on Name */}
-      <div className="search">
+      <div className="relative left-[10px]">
         <input
+          className="border-[4px] border-cyan-600 rounded-md mx-9"
           onChange={(e) => {
             setSearchString(e.target.value)
             handleSearch()
@@ -78,7 +79,7 @@ export const Body = () => {
           placeholder="Search your favorite restaurent"
         />
         <button
-          className="searchBtn"
+          className="bg-neutral-900 text-emerald-50 p-1 rounded-md shadow-slate-400"
           onClick={() => {
             handleSearch()
           }}
@@ -90,12 +91,13 @@ export const Body = () => {
         </button>
       </div>
       {/* Filtering the Top reated Restaurents */}
-      <div className="filter">
+      <div className="m-5">
         <button
           onClick={() => {
             let filteredObj = resObj?.filter((obj) => obj.avgRating >= 4.5)
             setFilterdRestaurent(filteredObj)
           }}
+          className="text-white colorborder  bg-cyan-500 rounded-md px-4 py-2.5 text-lg relative left-[30px]"
         >
           Top Rated Restarents
         </button>
@@ -103,7 +105,7 @@ export const Body = () => {
 
       {/* Displaying Restaurent Object */}
 
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {flteredRestaurent?.map((eachObj, i) => (
           <Link to={"/restaurents/" + eachObj.id} key={i}>
             <RestarentCard resObj={eachObj} />

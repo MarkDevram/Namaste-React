@@ -1,5 +1,4 @@
 import { restarentCloudinarImg } from "../utils/Constants"
-import { Link } from "react-router-dom"
 
 export const RestarentCard = ({ resObj }) => {
   // console.log(resObj)
@@ -7,24 +6,20 @@ export const RestarentCard = ({ resObj }) => {
   const eta = resObj.sla.deliveryTime
   // console.log(name, cuisines, avgRating, costForTwo)
 
-  const syleObj = {
-    backgroundColor: "lightGreen",
-  }
-
   return (
-    <Link>
-      <div className="Res-card" style={syleObj}>
+    <>
+      <div className="hover:bg-lime-300 hover:shadow-2xl ml-[45px] border-[5px] border-emerald-500 mb-[40px] p-4 h-[400px] w-[250px] bg-slate-300 justify-center rounded-lg">
         <img
-          className="resLogo"
+          className="w-[200px] rounded-full h-[200px]"
           alt="res-logo"
           src={`${restarentCloudinarImg}${resObj.cloudinaryImageId}`}
         />
-        <h3 className="text-3xl font-bold underline">{name}</h3>
+        <h3 className="text-xl font-bold">{name}</h3>
         <h4>{cuisines.join(", ")}</h4>
         <h4>{avgRating} ⭐</h4>
         <h4>{costForTwo}</h4>
         <h4>{eta} Mins ⌚</h4>
       </div>
-    </Link>
+    </>
   )
 }
