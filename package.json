@@ -11,14 +11,15 @@
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.10.3",
-    "process": "^0.11.10"
+    "postcss": "^8.4.32",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.3.6"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1",
-    "react-shimmer": "^3.2.0",
-    "proxy": "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.956924&lng=77.701127&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  }
+    "react-router-dom": "^6.20.1"
+  },
+  "main": "index.js",
+  "keywords": []
 }
