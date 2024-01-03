@@ -8,9 +8,9 @@ export const RestarentCard = ({ resObj }) => {
 
   return (
     <>
-      <div className="hover:bg-lime-300 hover:shadow-2xl ml-[45px] border-[5px] border-emerald-500 mb-[40px] p-4 h-[400px] w-[250px] bg-slate-300 justify-center rounded-lg">
+      <div className="  hover:bg-emerald-200  hover:shadow-2xl ml-[45px] border-[5px] border-red-700 mb-[40px] p-4 h-auto w-[250px] justify-center rounded-lg bg-emerald-100">
         <img
-          className="w-[200px] rounded-full h-[200px]"
+          className="w-[650px] rounded-lg h-[200px]"
           alt="res-logo"
           src={`${restarentCloudinarImg}${resObj.cloudinaryImageId}`}
         />
@@ -22,4 +22,17 @@ export const RestarentCard = ({ resObj }) => {
       </div>
     </>
   )
+}
+
+export const RestarentCardWithPromoted = (RestarentCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="font-bold absolute p-2 m-2 text-white  bg-black text-sm rounded-lg">
+          ⭐⭐⭐⭐ Top Rated
+        </label>
+        <RestarentCard {...props} />
+      </div>
+    )
+  }
 }

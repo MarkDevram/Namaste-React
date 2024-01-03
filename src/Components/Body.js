@@ -1,4 +1,4 @@
-import { RestarentCard } from "./RestarentCard"
+import { RestarentCard, RestarentCardWithPromoted } from "./RestarentCard"
 import { useState, useEffect } from "react"
 import { resObjFromFile } from "../utils/RestarentObject"
 import ShimmerComp from "./ShimmerComp"
@@ -15,8 +15,34 @@ export const Body = () => {
   //search string state
   const [searchString, setSearchString] = useState("")
 
+  const PromotedRestarent = RestarentCardWithPromoted(RestarentCard)
+  console.log(PromotedRestarent)
   useEffect(() => {
     fetchFun()
+    const handleScroll = () => {
+      console.log(
+        "This represents the height of the browser window's content area, i.e., the visible part of the webpage.",
+        window.innerHeight + document.documentElement.scrollTop
+      )
+      console.log(
+        "This represents the number of pixels that the document is currently scrolled vertically.",
+        document.documentElement.offsetHeight
+      )
+      // if (
+      //   window.innerHeight + document.documentElement.scrollTop ===
+      //   document.documentElement.offsetHeight
+      // ) {
+      //   console.log("In")
+      //   // Load more data
+      //   // You can call a function to fetch more data from Swiggy API here
+      // }
+    }
+    window.addEventListener("scroll", handleScroll)
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   const fetchFun = async () => {
@@ -63,7 +89,7 @@ export const Body = () => {
   }
 
   return (
-    <div className="body">
+    <div className=" py-4 body bg-gradient-to-r from-green-400 to-blue-500">
       {/* Searching the Restarent based on Name */}
       <div className="relative left-[10px]">
         <input
@@ -97,18 +123,21 @@ export const Body = () => {
             let filteredObj = resObj?.filter((obj) => obj.avgRating >= 4.5)
             setFilterdRestaurent(filteredObj)
           }}
-          className="text-white colorborder  bg-cyan-500 rounded-md px-4 py-2.5 text-lg relative left-[30px]"
+          className="text-white colorborder font-bold  bg-orange-500 rounded-md px-4 py-2.5 text-lg relative left-[30px]"
         >
-          Top Rated Restarents
+          High Rated Restarents
         </button>
       </div>
 
       {/* Displaying Restaurent Object */}
-
       <div className="flex flex-wrap">
         {flteredRestaurent?.map((eachObj, i) => (
           <Link to={"/restaurents/" + eachObj.id} key={i}>
-            <RestarentCard resObj={eachObj} />
+            {eachObj.avgRating > 4.5 ? (
+              <RestarentCard resObj={eachObj} />
+            ) : (
+              <PromotedRestarent resObj={eachObj} />
+            )}
           </Link>
         ))}
       </div>
