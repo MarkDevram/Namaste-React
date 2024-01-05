@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .header {
@@ -30,7 +30,7 @@ body {
   width: 250px;
 
   /* background-color: #f0f0f0; */
-}
+/* }
 .Res-card:hover {
   cursor: pointer;
   border: 2px solid rgb(0, 0, 0);
@@ -55,7 +55,7 @@ body {
 .searchBtn {
   margin-right: 10px;
   margin-left: 10px;
-}
+} */
 
 .shimmer-division {
   margin-top: 80px;
@@ -80,6 +80,7 @@ body {
     transform: translateX(100%);
   }
 }
+/* }
 .login-btn {
   cursor: pointer;
   width: 80px;
@@ -178,4 +179,4 @@ body {
   color: rgb(0, 0, 0);
   background-color: beige;
   border-radius: 5%;
-}
+} */

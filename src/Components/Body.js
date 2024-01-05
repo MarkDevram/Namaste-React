@@ -1,9 +1,9 @@
 import { RestarentCard, RestarentCardWithPromoted } from "./RestarentCard"
 import { useState, useEffect } from "react"
-import { resObjFromFile } from "../utils/RestarentObject"
-import ShimmerComp from "./ShimmerComp"
 import { Link } from "react-router-dom"
 import useOnlinStatus from "../utils/useOnlinStatus"
+import { API_Url } from "../utils/Constants"
+import ShimmerComp from "./ShimmerComp"
 
 export const Body = () => {
   //Restaurent Object
@@ -16,49 +16,20 @@ export const Body = () => {
   const [searchString, setSearchString] = useState("")
 
   const PromotedRestarent = RestarentCardWithPromoted(RestarentCard)
-  console.log(PromotedRestarent)
   useEffect(() => {
     fetchFun()
-    const handleScroll = () => {
-      console.log(
-        "This represents the height of the browser window's content area, i.e., the visible part of the webpage.",
-        window.innerHeight + document.documentElement.scrollTop
-      )
-      console.log(
-        "This represents the number of pixels that the document is currently scrolled vertically.",
-        document.documentElement.offsetHeight
-      )
-      // if (
-      //   window.innerHeight + document.documentElement.scrollTop ===
-      //   document.documentElement.offsetHeight
-      // ) {
-      //   console.log("In")
-      //   // Load more data
-      //   // You can call a function to fetch more data from Swiggy API here
-      // }
-    }
-    window.addEventListener("scroll", handleScroll)
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
   }, [])
 
   const fetchFun = async () => {
-    let API_Url =
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.956924&lng=77.701127&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-
     const response = await fetch(API_Url)
     const json = await response.json()
-    console.log(json)
+    console.log("Json", json)
     const restaurentObj =
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    console.log("Fethed the restarent list are", restaurentObj)
     const dataRes = restaurentObj?.map((obj) => {
       return obj.info
     })
-    console.log(dataRes)
     setResObj(dataRes)
     setFilterdRestaurent(dataRes)
   }
@@ -69,12 +40,11 @@ export const Body = () => {
     console.log(onlineStatus)
     return (
       <h1 style={{ textAlign: "center" }}>
-        {" "}
         You are not connected to the Internet
       </h1>
     )
   }
-
+  //handling the search functionality
   const handleSearch = () => {
     const searchedRestaurent = resObj.filter((obj) => {
       return obj?.name.toLowerCase().includes(searchString)
@@ -83,11 +53,12 @@ export const Body = () => {
     setFilterdRestaurent(searchedRestaurent)
   }
 
-  //conditional Rendering
+  //conditional Rendering if resObj contains nothing ,
   if (resObj?.length === 0) {
     return <ShimmerComp />
   }
 
+  //else condition, excecuted only when the resObj has some values
   return (
     <div className=" py-4 body bg-gradient-to-r from-green-400 to-blue-500">
       {/* Searching the Restarent based on Name */}
@@ -123,7 +94,7 @@ export const Body = () => {
             let filteredObj = resObj?.filter((obj) => obj.avgRating >= 4.5)
             setFilterdRestaurent(filteredObj)
           }}
-          className="text-white colorborder font-bold  bg-orange-500 rounded-md px-4 py-2.5 text-lg relative left-[30px]"
+          className="text-white colorborder font-bold rounded-md px-4 py-2.5 text-lg relative left-[30px]"
         >
           High Rated Restarents
         </button>
@@ -132,11 +103,11 @@ export const Body = () => {
       {/* Displaying Restaurent Object */}
       <div className="flex flex-wrap">
         {flteredRestaurent?.map((eachObj, i) => (
-          <Link to={"/restaurents/" + eachObj.id} key={i}>
-            {eachObj.avgRating > 4.5 ? (
-              <RestarentCard resObj={eachObj} />
-            ) : (
+          <Link to={"/restaurents/" + eachObj?.id} key={i}>
+            {eachObj.avgRating >= 4.3 ? (
               <PromotedRestarent resObj={eachObj} />
+            ) : (
+              <RestarentCard resObj={eachObj} />
             )}
           </Link>
         ))}

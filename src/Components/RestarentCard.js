@@ -1,16 +1,18 @@
 import { restarentCloudinarImg } from "../utils/Constants"
 
 export const RestarentCard = ({ resObj }) => {
-  // console.log(resObj)
+  console.log("______inside RestarentCard _____")
+  console.log("Rendered Restarent is", resObj)
+
   const { name, cuisines, avgRating, costForTwo } = resObj
+
   const eta = resObj.sla.deliveryTime
-  // console.log(name, cuisines, avgRating, costForTwo)
 
   return (
     <>
       <div className="  hover:bg-emerald-200  hover:shadow-2xl ml-[45px] border-[5px] border-red-700 mb-[40px] p-4 h-auto w-[250px] justify-center rounded-lg bg-emerald-100">
         <img
-          className="w-[650px] rounded-lg h-[200px]"
+          className="object-cover w-[650px] rounded-lg h-[200px]"
           alt="res-logo"
           src={`${restarentCloudinarImg}${resObj.cloudinaryImageId}`}
         />
@@ -24,6 +26,7 @@ export const RestarentCard = ({ resObj }) => {
   )
 }
 
+//HOC
 export const RestarentCardWithPromoted = (RestarentCard) => {
   return (props) => {
     return (

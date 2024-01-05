@@ -1,148 +1,68 @@
-import React, { useEffect, useState } from "react"
-import ShimmerComp from "./ShimmerComp"
-import { menuAPI_URL } from "../utils/Constants"
+import React from "react"
 import { useParams } from "react-router-dom"
 import useRestaurentMenu from "../utils/useRestaurentMenu"
+import ShimmerComp from "../Components/ShimmerComp"
+import RestCatogery from "./RestCatogery"
+// import { restarentCloudinarImg } from "../utils/Constants.js"
 
 function RestaurentsDetails() {
+  console.clear()
+
+  //this will used to get the id of res
   const { resId } = useParams()
-  console.log(resId)
+
+  console.log("Clicked Restaurent Id is", resId)
 
   const resInfo = useRestaurentMenu(resId)
+
   console.log(resInfo)
 
-  //conditional rendering
-  if (resInfo === null) {
+  const categories =
+    resInfo?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards.filter(
+      (eachCard) => {
+        return (
+          eachCard.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        )
+      }
+    )
+
+  //
+  const name = resInfo?.data?.cards[0].card.card.info.name
+  const cussins = resInfo?.data?.cards[0].card?.card?.info?.cuisines.join(",")
+  const distance = resInfo?.data?.cards[0].card?.card?.info?.feeDetails.message
+  const totalRatings = resInfo?.data?.cards[0].card?.card?.info?.totalRatings
+  const avgRating = resInfo?.data?.cards[0].card?.card?.info?.avgRating
+  //
+
+  if (resInfo == null) {
     return <ShimmerComp />
   }
-
-  //data destructuring
-  const recommendedFoods =
-    resInfo.cards[2]?.groupedCard.cardGroupMap.REGULAR.cards[3].card.card
-      ?.itemCards
-
-  const seaFoodstarters =
-    resInfo.cards[2]?.groupedCard.cardGroupMap.REGULAR.cards[4].card.card
-      ?.itemCards
-
-  const nonVegCurries =
-    resInfo.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[5]?.card?.card
-      ?.itemCards
-
-  const vegCurries =
-    resInfo.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[6]?.card?.card
-      ?.itemCards
-
-  const nonVegBiriyani =
-    resInfo.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[7]?.card?.card
-      ?.itemCards
-
-  console.log(
-    resInfo.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card
-      ?.itemCards[3]?.card?.info
-  )
-
-  const {
-    id,
-    name,
-    cloudinaryImageId,
-    avgRating,
-    costForTwoMessage,
-    cuisines,
-  } = resInfo.cards[0].card.card.info
-
-  const { deliveryTime } = resInfo.cards[0].card.card.info.sla
-
   return (
-    <div>
-      <div className="restaurentHeader">
-        <span className="restaurent-name">{name}</span>
-        <span className="cuisines">{cuisines.join(",")}</span>
-        <span className="deliveryTime">Delivery time ⌛ {deliveryTime}</span>
+    <div className="w-full h-[750px]">
+      <div className="relative left-[400px]  content-center  h-[300px w-[800px] mt-10 text-2xl font-semibold  ">
+        {/* restarant banner */}
+        <div className="p-2 flex justify-between border-[2px] border-black ">
+          <div>
+            <h4 className="text-left font-extrabold">{name}</h4>
+            <p className="text-sm mt-3">{cussins}</p>
+            <p className="text-sm">🚴{distance}</p>
+          </div>
+          <div className="ml-[400px]">
+            {/* rating */}
+            <p className="w-18 p-1 text-center bg-green-700 text-white mt-2 text-sm rounded-sm font-extrabold">
+              {avgRating}⭐
+            </p>
+            <p className="mt-2 text-sm text-right">{totalRatings}+ Ratings</p>
+          </div>
+        </div>
       </div>
 
-      <h4 className="itemHeader">👇 Items Available Rightnow ✅ </h4>
-      <div className="items">
-        <div className="recommended-foods eachItem">
-          <h3>
-            <u>Recommended Foods 😋 ({recommendedFoods.length})</u>
-          </h3>
-          <ul>
-            {recommendedFoods.map((eachInfo) => {
-              console.log(eachInfo)
-              return (
-                <>
-                  <li key={eachInfo.card.info.id}>{eachInfo.card.info.name}</li>
-                  <pre>{eachInfo.card.info.price / 100} Rs/-</pre>
-                </>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="seaFoodstarters eachItem">
-          <h3>
-            <u>Menu 1 ({seaFoodstarters.length})</u>
-          </h3>
-          <ul>
-            {seaFoodstarters.map((eachInfo) => {
-              console.log(eachInfo)
-              return (
-                <>
-                  <li key={eachInfo.card.info.id}>{eachInfo.card.info.name}</li>
-                  <pre>{eachInfo.card.info.price / 100} Rs/-</pre>
-                </>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="nonVegCurries eachItem">
-          <h3>
-            <u>Menu 2 ({nonVegCurries.length})</u>
-          </h3>
-          <ul>
-            {nonVegCurries.map((eachInfo) => {
-              console.log(eachInfo)
-              return (
-                <>
-                  <li key={eachInfo.card.info.id}>{eachInfo.card.info.name}</li>
-                  <pre>{eachInfo.card.info.price / 100} Rs/-</pre>
-                </>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="vegCurries eachItem">
-          <h3>
-            <u>Menu 3 ({vegCurries.length})</u>
-          </h3>
-          <ul>
-            {vegCurries.map((eachInfo) => {
-              console.log(eachInfo)
-              return (
-                <>
-                  <li key={eachInfo.card.info.id}>{eachInfo.card.info.name}</li>
-                  <pre>{eachInfo.card.info.price / 100} Rs/-</pre>
-                </>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="vegCurries eachItem">
-          <h3>
-            <u>Menu 4 ({nonVegBiriyani.length})</u>
-          </h3>
-          <ul>
-            {nonVegBiriyani.map((eachInfo) => {
-              console.log(eachInfo)
-              return (
-                <>
-                  <li key={eachInfo.card.info.id}>{eachInfo.card.info.name}</li>
-                  <pre>{eachInfo.card.info.price / 100} Rs/-</pre>
-                </>
-              )
-            })}
-          </ul>
-        </div>
+      <div className="relative left-[400px] h-[300px] content-center  h-[300px w-[800px] mt-10 font-semibold">
+        {/* Accordian */}
+        {categories.map((eachCatogery, i) => {
+          return <RestCatogery catogery={eachCatogery.card.card} key={i} />
+        })}
       </div>
     </div>
   )
