@@ -1,14 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import SubItem from "./SubItem"
 
 function ItemList({ itemCards }) {
   console.log(itemCards)
   return (
     <div>
-      {itemCards.map((c) => {
-        console.log("each item each card", c)
-        return <SubItem items={c.card.info} />
-      })}
+      {itemCards.map((c, i) => (
+        <SubItem items={c.card.info} key={i} />
+      ))}
     </div>
   )
 }

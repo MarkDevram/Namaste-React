@@ -25,7 +25,7 @@ export const Body = () => {
     const json = await response.json()
     console.log("Json", json)
     const restaurentObj =
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     console.log("Fethed the restarent list are", restaurentObj)
     const dataRes = restaurentObj?.map((obj) => {
       return obj.info
@@ -64,7 +64,7 @@ export const Body = () => {
       {/* Searching the Restarent based on Name */}
       <div className="relative left-[10px]">
         <input
-          className="border-[4px] border-cyan-600 rounded-md mx-9"
+          className="text-sm border-[4px] border-cyan-600 rounded-md mx-9"
           onChange={(e) => {
             setSearchString(e.target.value)
             handleSearch()

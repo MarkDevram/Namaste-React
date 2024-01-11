@@ -5,8 +5,9 @@ function RestCatogery({ catogery }) {
   const [clicked, setClicked] = useState(true)
 
   {
-    console.log("Inside the Each category", catogery)
+    console.log("Inside the Each category in Current Restarant", catogery)
   }
+
   return (
     <div>
       {/* Accordian */}
@@ -20,12 +21,7 @@ function RestCatogery({ catogery }) {
           <span className="font-extrabold text-xl  ">
             {catogery.title} ({catogery.itemCards.length})
           </span>
-          <span
-            onClick={() => {
-              setClicked(!clicked)
-            }}
-            className="text-left text-2xl"
-          >
+          <span className="text-left text-2xl">
             {clicked ? (
               <div>
                 <span className="text-xl ">Collapse ⬆️</span>

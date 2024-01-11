@@ -12,6 +12,7 @@ function SubItem({ items }) {
   const name = items.name
   const description = items.description
   const price = items.price
+  const defaultPrice = items.defaultPrice
   const imgId = items.imageId
   const isBestseller = items.isBestseller
 
@@ -46,10 +47,11 @@ function SubItem({ items }) {
               alt="dish logo"
               src={`${restarentCloudinarImg}${imgId}`}
             />
+            <button className="relative text-center text-white font-bold w-[60px] rounded-lg left-8 p-1 bottom-6  bg-green-500">
+              Add
+            </button>
           </div>
-          {/* <button className="relative text-center text-white font-bold w-[60px] rounded-lg left-8 p-1 bottom-6  bg-green-500">
-            Add
-          </button> */}
+
           {modal && (
             <ImgModal
               imgID={imgId}
@@ -57,6 +59,7 @@ function SubItem({ items }) {
               name={name}
               description={description}
               price={price}
+              defaultPrice={defaultPrice}
             />
           )}
         </div>

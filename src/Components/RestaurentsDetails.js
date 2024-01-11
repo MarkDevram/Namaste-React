@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 import useRestaurentMenu from "../utils/useRestaurentMenu"
 import ShimmerComp from "../Components/ShimmerComp"
@@ -60,9 +60,9 @@ function RestaurentsDetails() {
 
       <div className="relative left-[400px] h-[300px] content-center  h-[300px w-[800px] mt-10 font-semibold">
         {/* Accordian */}
-        {categories.map((eachCatogery, i) => {
-          return <RestCatogery catogery={eachCatogery.card.card} key={i} />
-        })}
+        {categories.map((eachCatogery, i) => (
+          <RestCatogery catogery={eachCatogery.card.card} key={i} />
+        ))}
       </div>
     </div>
   )
